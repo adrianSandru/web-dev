@@ -1,122 +1,125 @@
+console.log("hello from script");
 
-//passing functions as arguments
+//javascript lightweight, cross-platform, obj-oriented programming language
+//lightweight doesn`t eat to much from computer, easy sintax
 
-var year = [1990, 1993, 1934, 1324];
+//html responsible for content
+//css responsible for presentation
+//javascript dynamic effect/ programming
 
-function arrayCalc( arr, fn) {
-    var arrRes = [];
-    for(var index = 0; index < arr.length; index++)
-    {
-        arrRes.push(fn(arr[index]));
-    }
+var firstName = 'Jhon';
+var lastName = 'Smith';
 
-    return arrRes;
-}
+var age = 20;
 
-function calculateAge(elem)
-{
-    return 2020-elem;
-}
+/*
+js data types: 
+Numbers, String, Boolean
+Undefined: doesn`t have a value yet
+Null: non existent
+js has dynamic typing: data types  are automatically assigned to vars
+*/
 
-function maxHeartRate(elem)
-{
-    return Math.round(206.9 -(0.67 * elem));
-}
+/*
+js type coertion: automatically converts to the type needed
+ */
+console.log(firstName + ' ' + age);
 
-var arr = arrayCalc(year,calculateAge);
-console.log(arr);
-arr = arrayCalc(year,maxHeartRate);
-console.log(arr);
+//mutation
+age = 'old';
 
+// var massMark = prompt('Insert Marks mass');
+// var heightMark = prompt('Insert Marks height');
+// var massJhon = prompt('Insert Jhon mass');
+// var heightJhon = prompt('Insert Jhon height');
 
-//functions returning functions
-function interviewQuestion(job)
+// var bmiMark = massMark / (heightMark^2);
+// var bmiJhon = massJhon / (heightJhon);
+// console.log("Mark bmi:" + bmiMark);
+// console.log("Jhon bmi:" + bmiJhon);
+
+//falsy values: NaN - not a number, undefined, null, 0, empty string ''
+
+var height = 10;
+if( height == '10') //it works because of type coertion
+    console.log('yes');
+
+//function declaration
+function calculateAge(birthYear){}
+
+//function expression
+var checkJob = function(job, name)
 {
     switch(job)
     {
-        case 'designer':
-        {
-            return function(name) 
-            {
-                console.log(name + ' tell me about design!');
-            }
-        }
-        case 'driver':
-        {
-            return function(name)
-            {
-                console.log(name + ' tell me why do you want this job');
-            }
-        }
-    } 
-}
-
-var driverQuestion = interviewQuestion('driver');
-driverQuestion('Adrian');
-
-interviewQuestion('designer')('Mark');
-
-//IIFE immediately invoked function expressions
-(function()
-{
-    var score = Math.random * 10;
-    console.log(score > 5);
-})();
-
-(function(args)
-{
-    var score = Math.random() * 10;
-    console.log(score > 5 - args);
-})(5);
-
-//////////////////////////
-///Closures
-
-function retirment(retirmentAge)
-{
-    var a = ' years left until retirrment';
-    return function(year)
-    {
-        var age = 2020-year;
-        console.log((retirmentAge -age) +a);
+        case 'driver': return name + ' drives a cab in NY';
+        case 'teacher': return name + ' teaches kids';
+        default: return name + ' does somthing';
     }
 }
 
-var retirmentUS = retirment(66);
-retirmentUS(1990);
+console.log(checkJob('driver', 'jhonny'));
 
+var arr = ['a', 'bv', 10, 29, true];
+arr.push('ooohooo');
+console.log(arr);
 
-//bin call and apply
+var bills = new Array(124, 48,  268);
+var tips = [];
 
-var jhon = 
+bills.forEach(bill => 
+    {
+    if(bill < 50)
+        tips.push(bill * 0.2);
+    else if(bill >= 50 && bill < 200)
+        tips.push(bill * 0.15);
+    else if(bill > 200)
+        tips.push(bill * 0.1);
+    });
+
+var total = [];
+for(var index = 0; index < bills.length; index++)
 {
-    name: 'Jhon',
-    age: 25,
+    total.push(bills[index] + tips[index]);
+}
+//console.log(total);
+
+var jhon = {
+    firstName: 'Jhon',
+    lastName: 'Smith',
+    birthDay: 1992,
+    family: ['Jane', 'Mark','BoB'],
     job: 'driver',
-    presentation: function(style, timeOfDay)
+    isMarried: true,
+    calculateAge: function()
     {
-        if(style === 'normal')
-        {
-            console.log('hi i am ' + this.name + timeOfDay);
-        }
-        else if(style === 'friendly')
-        {
-            console.log('hi i am ' + this.name + 'and i have ' + this.age + timeOfDay);
-        }
+        this.age = 2020-this.birthDay;
     }
 }
 
-var emily = 
+// jhon.calculateAge();
+// console.log(jhon);
+
+var jhonny =
 {
-    name: 'Emily',
-    age:30
+    firstName: 'Jhonny',
+    lastName: 'Smith',
+    bodyMass: 70,
+    height: 175,
+    calcBMI: function (){
+        this.bmi = (this.bodyMass / (height^2));
+    }
 }
-jhon.presentation('normal', 'morning');
-jhon.presentation.call(emily, 'friendly', 'morning');
 
-//jhon.presentation.apply(emily,['friendly']);
-//bind an argument for a function. bind will return always a function
-
-var jhonFriendly = jhon.presentation.bind(jhon, 'friendly');
-jhonFriendly('morning');
-jhonFriendly('afternnon');
+var Mark =
+{
+    firstName: 'Mark',
+    lastName: 'Smith',
+    bodyMass: 76,
+    height: 160,
+    calcBMI: function (){
+        this.bmi = (this.bodyMass / (this.height^2));
+    }
+}
+jhonny.calcBMI();
+console.log(jhonny.bmi);
